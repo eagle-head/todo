@@ -1,13 +1,5 @@
 import React, { FC, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  StatusBar,
-  Button,
-  ListRenderItemInfo,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, View, FlatList, StatusBar, Button, ListRenderItemInfo, SafeAreaView } from "react-native";
 
 import GoalInput from "../components/GoalInput";
 import GoalItem from "../components/GoalItem";
@@ -22,7 +14,7 @@ const App: FC = (): JSX.Element => {
   const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
 
   const addGoalHandler = (enteredGoalText: string): void => {
-    if (enteredGoalText.trim()) {
+    if (enteredGoalText.trim().length >= 2) {
       setCourseGoals(currentCourseGoal => [
         ...currentCourseGoal,
         { text: enteredGoalText.trim(), key: Math.random().toString() },
@@ -54,11 +46,7 @@ const App: FC = (): JSX.Element => {
     <SafeAreaView style={styles.appContainer}>
       <StatusBar barStyle="light-content" />
       <Button title="Add New goal" color="#a065ec" onPress={startAddGoalHandler} />
-      <GoalInput
-        onAddGoal={addGoalHandler}
-        isVisible={modalIsVisible}
-        onCancel={endAddGoalHandler}
-      />
+      <GoalInput onAddGoal={addGoalHandler} isVisible={modalIsVisible} onCancel={endAddGoalHandler} />
       <View style={styles.goalsContainer}>
         <FlatList data={courseGoals} alwaysBounceVertical={false} renderItem={renderGoalItem} />
       </View>

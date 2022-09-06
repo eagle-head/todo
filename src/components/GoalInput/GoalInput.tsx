@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { View, TextInput, Button, Modal, Image } from "react-native";
+import { View, TextInput, Button, Modal, Image, Alert, AlertStatic } from "react-native";
 
 import { styles } from "./styles";
 import { GoalInputType } from "./types";
@@ -11,7 +11,11 @@ const GoalInput: FC<GoalInputType> = (props): JSX.Element => {
     setEnteredGoalText(enteredText);
   };
 
-  const addInputGoalHandler = (): void => {
+  const addInputGoalHandler = (): void | AlertStatic => {
+    if (enteredGoalText.trim().length < 2) {
+      return Alert.alert("Warning", "The label item must be longer than 2 characters", [{ text: "OK" }]);
+    }
+
     props.onAddGoal(enteredGoalText);
     setEnteredGoalText("");
   };

@@ -3,11 +3,7 @@ import { StyleSheet, View, FlatList, StatusBar, Button, ListRenderItemInfo, Safe
 
 import GoalInput from "../components/GoalInput";
 import GoalItem from "../components/GoalItem";
-
-type GoalType = {
-  text: string;
-  key: string;
-};
+import { GoalType } from "./types";
 
 const App: FC = (): JSX.Element => {
   const [courseGoals, setCourseGoals] = useState<GoalType[]>([]);

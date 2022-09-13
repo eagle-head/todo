@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { View, Text, Pressable, Alert } from "react-native";
 
-import { GoalItemType } from "./types";
+import { GoalItem } from "../../interfaces";
 import { styles } from "./styles";
 
-const GoalItem: FC<GoalItemType> = (props): JSX.Element => {
+const GoalItem: FC<GoalItem> = (props): JSX.Element => {
   const handleDeleteItem = (id: string): void => {
     Alert.alert("Warning", "Are you sure you want to delete this item?", [
       {

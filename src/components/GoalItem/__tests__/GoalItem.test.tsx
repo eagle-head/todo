@@ -1,15 +1,15 @@
 import React from "react";
-import GoalItem from "../";
+import GoalItem from "..";
 import { render, screen } from "@testing-library/react-native";
 
-describe("GoalItem tests:", () => {
+describe("GoalItem:", () => {
   it("should renders correctly", () => {
     const mockFunction = jest.fn();
 
     render(<GoalItem id="test-goal-item" onDeleteItem={mockFunction} text="React Native" />);
   });
 
-  it("Should get label text item", () => {
+  it("should get label text item", () => {
     const handleDeleteItemMock = jest.fn();
 
     render(<GoalItem id="test-goal-item" onDeleteItem={handleDeleteItemMock} text="Learn React Native" />);

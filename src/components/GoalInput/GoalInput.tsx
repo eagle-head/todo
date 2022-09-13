@@ -2,9 +2,9 @@ import React, { FC, useState } from "react";
 import { View, TextInput, Button, Modal, Image, Alert, AlertStatic } from "react-native";
 
 import { styles } from "./styles";
-import { GoalInput } from "../../interfaces";
+import { IGoalInput } from "../../interfaces";
 
-const GoalInput: FC<GoalInput> = (props): JSX.Element => {
+const GoalInput: FC<IGoalInput> = (props): JSX.Element => {
   const [enteredGoalText, setEnteredGoalText] = useState<string>("");
 
   const goalInputHandler = (enteredText: string): void => {

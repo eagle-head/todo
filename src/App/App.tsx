@@ -3,10 +3,10 @@ import { StyleSheet, View, FlatList, StatusBar, Button, ListRenderItemInfo, Safe
 
 import GoalInput from "../components/GoalInput";
 import GoalItem from "../components/GoalItem";
-import { Goal } from "../interfaces";
+import { IGoal } from "../interfaces";
 
 const App: FC = (): JSX.Element => {
-  const [courseGoals, setCourseGoals] = useState<Goal[]>([]);
+  const [courseGoals, setCourseGoals] = useState<IGoal[]>([]);
   const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
 
   const addGoalHandler = (enteredGoalText: string): void => {
@@ -34,7 +34,7 @@ const App: FC = (): JSX.Element => {
     setModalIsVisible(false);
   };
 
-  const renderGoalItem = ({ item }: ListRenderItemInfo<Goal>): JSX.Element => {
+  const renderGoalItem = ({ item }: ListRenderItemInfo<IGoal>): JSX.Element => {
     return <GoalItem text={item.text} id={item.key} onDeleteItem={deleteHandler} />;
   };
 

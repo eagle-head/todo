@@ -6,7 +6,6 @@ export interface IGoal {
 export interface IGoalInput {
   onAddGoal: (param: string) => void;
   onCancel: () => void;
-  isVisible: boolean;
 }
 
 export interface IGoalItem {

@@ -6,6 +6,9 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
+    height: 260,
+  },
+  modalStyle: {
     backgroundColor: "#311b6b",
   },
   textInput: {
@@ -26,8 +29,8 @@ export const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   image: {
-    width: 100,
-    height: 100,
-    margin: 20,
+    height: 80,
+    width: 80,
+    marginBottom: 16,
   },
 });

@@ -1,47 +1,62 @@
-import React, { FC, useState } from "react";
-import { View, TextInput, Button, Modal, Image, Alert, AlertStatic } from "react-native";
+import React, { forwardRef, useState } from "react";
+import { View, TextInput, Button, Image, Platform } from "react-native";
+import { Modalize } from "react-native-modalize";
 
 import { styles } from "./styles";
 import { IGoalInput } from "../../interfaces";
 
-const GoalInput: FC<IGoalInput> = (props): JSX.Element => {
+const GoalInput = forwardRef<Modalize, IGoalInput>(({ onCancel, onAddGoal }, ref): JSX.Element => {
   const [enteredGoalText, setEnteredGoalText] = useState<string>("");
 
-  const goalInputHandler = (enteredText: string): void => {
+  const handleGoalInput = (enteredText: string): void => {
     setEnteredGoalText(enteredText);
   };
 
-  const addInputGoalHandler = (): void | AlertStatic => {
+  const handleAddInputGoal = (): void => {
+    onCancel();
+
     if (enteredGoalText.trim().length < 2) {
-      return Alert.alert("Warning", "The label item must be longer than 2 characters", [{ text: "OK" }]);
+      // aqui entra logica do modal de alerta
+      return;
     }
 
-    props.onAddGoal(enteredGoalText);
+    onAddGoal(enteredGoalText);
+    setEnteredGoalText("");
+  };
+
+  const handleCancelButton = (): void => {
+    onCancel();
     setEnteredGoalText("");
   };
 
   return (
-    <Modal visible={props.isVisible} animationType="slide">
+    <Modalize
+      keyboardAvoidingBehavior={Platform.OS === "ios" ? "padding" : "height"}
+      ref={ref}
+      modalStyle={styles.modalStyle}
+      adjustToContentHeight>
       <View style={styles.inputContainer}>
         <Image style={styles.image} source={require("../../assets/images/goal.png")} />
         <TextInput
+          autoFocus
           style={styles.textInput}
           placeholder="Your text goal..."
           placeholderTextColor="#b180f0"
-          onChangeText={goalInputHandler}
+          onChangeText={handleGoalInput}
           value={enteredGoalText}
+          returnKeyType="done"
         />
         <View style={styles.buttonContainer}>
           <View style={styles.button}>
-            <Button title="Add Goal" onPress={addInputGoalHandler} color="#b180f0" />
+            <Button title="Add Goal" onPress={handleAddInputGoal} color="#b180f0" />
           </View>
           <View style={styles.button}>
-            <Button title="Cancel" onPress={props.onCancel} color="#f31282" />
+            <Button title="Cancel" onPress={handleCancelButton} color="#f31282" />
           </View>
         </View>
       </View>
-    </Modal>
+    </Modalize>
   );
-};
+});
 
 export { GoalInput };

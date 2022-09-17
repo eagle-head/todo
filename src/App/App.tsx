@@ -1,5 +1,6 @@
-import React, { FC, useState } from "react";
+import React, { FC, useCallback, useRef, useState } from "react";
 import { StyleSheet, View, FlatList, StatusBar, Button, ListRenderItemInfo, SafeAreaView } from "react-native";
+import { Modalize } from "react-native-modalize";
 
 import GoalInput from "../components/GoalInput";
 import GoalItem from "../components/GoalItem";
@@ -7,42 +8,48 @@ import { IGoal } from "../interfaces";
 
 const App: FC = (): JSX.Element => {
   const [courseGoals, setCourseGoals] = useState<IGoal[]>([]);
-  const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
+  const goalInputRef = useRef<Modalize | null>(null);
 
-  const addGoalHandler = (enteredGoalText: string): void => {
-    if (enteredGoalText.trim().length >= 2) {
-      setCourseGoals(currentCourseGoal => [
-        ...currentCourseGoal,
-        { text: enteredGoalText.trim(), key: Math.random().toString() },
-      ]);
-    }
+  const handleAddGoal = useCallback(
+    (enteredGoalText: string): void => {
+      if (enteredGoalText.trim().length >= 2) {
+        setCourseGoals(currentCourseGoal => [
+          ...currentCourseGoal,
+          { text: enteredGoalText.trim(), key: Math.random().toString() },
+        ]);
+      }
+    },
+    [setCourseGoals]
+  );
 
-    setModalIsVisible(false);
-  };
-
-  const deleteHandler = (id: string): void => {
-    setCourseGoals(currentCourseGoals => {
-      return currentCourseGoals.filter(({ key }) => key !== id);
-    });
-  };
-
-  const startAddGoalHandler = (): void => {
-    setModalIsVisible(true);
-  };
-
-  const endAddGoalHandler = (): void => {
-    setModalIsVisible(false);
-  };
+  const handleDelete = useCallback(
+    (id: string): void => {
+      setCourseGoals(currentCourseGoals => {
+        return currentCourseGoals.filter(({ key }) => key !== id);
+      });
+    },
+    [setCourseGoals]
+  );
 
   const renderGoalItem = ({ item }: ListRenderItemInfo<IGoal>): JSX.Element => {
-    return <GoalItem text={item.text} id={item.key} onDeleteItem={deleteHandler} />;
+    return <GoalItem text={item.text} id={item.key} onDeleteItem={handleDelete} />;
   };
+
+  const handleOpenModalize = useCallback((): void => {
+    goalInputRef.current?.open();
+  }, [goalInputRef]);
+
+  const handleCloseModalize = useCallback((): void => {
+    goalInputRef.current?.close();
+  }, [goalInputRef]);
 
   return (
     <SafeAreaView style={styles.appContainer}>
       <StatusBar barStyle="light-content" />
-      <Button title="Add New goal" color="#a065ec" onPress={startAddGoalHandler} />
-      <GoalInput onAddGoal={addGoalHandler} isVisible={modalIsVisible} onCancel={endAddGoalHandler} />
+      <View style={styles.buttonContainer}>
+        <Button title="Add New goal" color="#a065ec" onPress={handleOpenModalize} />
+      </View>
+      <GoalInput onAddGoal={handleAddGoal} onCancel={handleCloseModalize} ref={goalInputRef} />
       <View style={styles.goalsContainer}>
         <FlatList data={courseGoals} alwaysBounceVertical={false} renderItem={renderGoalItem} />
       </View>
@@ -55,12 +62,14 @@ export { App };
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
-    // paddingTop: 50,
-    // paddingHorizontal: 16,
     backgroundColor: "#1e085a",
   },
   goalsContainer: {
     flex: 5,
     marginTop: 16,
+    marginHorizontal: 8,
+  },
+  buttonContainer: {
+    marginTop: 32,
   },
 });

@@ -10,7 +10,4 @@ export const styles = StyleSheet.create({
     color: "white",
     padding: 8,
   },
-  pressedItem: {
-    opacity: 0.5,
-  },
 });

@@ -1,18 +1,24 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Text, TouchableOpacity } from "react-native";
 
-import { IGoalItem } from "../../interfaces";
+import Dialog from "../Dialog";
+import { IGoalItem } from "../../models";
 import { styles } from "./styles";
 
-const GoalItem: FC<IGoalItem> = (props): JSX.Element => {
-  const handleDeleteItem = (id: string): void => {
-    props.onDeleteItem(id);
+const GoalItem: FC<IGoalItem> = ({ id, onDeleteItem, text }): JSX.Element => {
+  const [isDialogVisible, setIsDialogVisible] = useState(false);
+
+  const handleDeleteItem = (): void => {
+    setIsDialogVisible(true);
   };
 
   return (
-    <TouchableOpacity style={styles.goalItem} onPress={handleDeleteItem.bind(this, props.id)}>
-      <Text style={styles.goalText}>{props.text}</Text>
-    </TouchableOpacity>
+    <>
+      <TouchableOpacity style={styles.goalItem} onPress={handleDeleteItem}>
+        <Text style={styles.goalText}>{text}</Text>
+      </TouchableOpacity>
+      <Dialog isVisible={isDialogVisible} setIsVisible={setIsDialogVisible} onDelete={onDeleteItem.bind(this, id)} />
+    </>
   );
 };
 

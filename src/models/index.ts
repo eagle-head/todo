@@ -13,3 +13,9 @@ export interface IGoalItem {
   id: string;
   onDeleteItem: (param: string) => void;
 }
+
+export interface IDialog {
+  isVisible: boolean;
+  setIsVisible: (arg: boolean) => void;
+  onDelete: () => void;
+}

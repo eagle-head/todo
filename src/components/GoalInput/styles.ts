@@ -18,15 +18,29 @@ export const styles = StyleSheet.create({
     color: "#120438",
     borderRadius: 6,
     width: "100%",
-    padding: 16,
+    padding: 12,
   },
   buttonContainer: {
+    width: "100%",
     flexDirection: "row",
-    marginTop: 16,
+    justifyContent: "space-around",
+    marginTop: 24,
   },
-  button: {
-    width: 100,
-    marginHorizontal: 8,
+  buttonGoal: {
+    borderColor: "#b180f0",
+    borderWidth: 1,
+  },
+  buttonCancel: {
+    borderColor: "#f31282",
+    borderWidth: 1,
+  },
+  buttonTextGoal: {
+    color: "#b180f0",
+    fontWeight: "600",
+  },
+  buttonTextCancel: {
+    color: "#f31282",
+    fontWeight: "600",
   },
   image: {
     height: 80,

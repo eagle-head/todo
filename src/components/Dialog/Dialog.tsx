@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, type PropsWithChildren } from "react";
 import { Paragraph, Dialog, Portal, Button } from "react-native-paper";
 import { IDialog } from "../../models";
 
-const DialogComponent: FC<IDialog> = ({ setIsVisible, isVisible, onDelete }): JSX.Element => {
+const DialogComponent: FC<PropsWithChildren<IDialog>> = ({ setIsVisible, isVisible, onDelete }) => {
   const hideDialog = () => setIsVisible(false);
 
   return (

@@ -6,7 +6,7 @@ import { Button, Snackbar } from "react-native-paper";
 import { styles } from "./styles";
 import { IGoalInput } from "../../models";
 
-const GoalInput = forwardRef<Modalize, IGoalInput>(({ onCancel, onAddGoal }, ref): JSX.Element => {
+const GoalInput = forwardRef<Modalize, IGoalInput>(({ onCancel, onAddGoal }, ref) => {
   const [enteredGoalText, setEnteredGoalText] = useState<string>("");
   const [isSnackbarVisible, setIsSnackbarVisible] = useState<boolean>(false);
 

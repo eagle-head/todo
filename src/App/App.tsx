@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from "react";
+import React, { FC, type PropsWithChildren, useRef, useState } from "react";
 import { View, FlatList, StatusBar, ListRenderItemInfo, SafeAreaView } from "react-native";
 import { Button } from "react-native-paper";
 import { Modalize } from "react-native-modalize";
@@ -9,7 +9,7 @@ import GoalItem from "../components/GoalItem";
 import { IGoal } from "../models";
 import { styles } from "./styles";
 
-const App: FC = (): JSX.Element => {
+const App: FC<PropsWithChildren> = () => {
   const [courseGoals, setCourseGoals] = useState<IGoal[]>([]);
   const goalInputRef = useRef<Modalize | null>(null);
 
@@ -53,7 +53,7 @@ const App: FC = (): JSX.Element => {
           style={styles.button}
           labelStyle={styles.buttonText}
           onPress={handleOpenModalize}>
-          Add Goal
+          Goal
         </Button>
       </View>
       <GoalInput onAddGoal={handleAddGoal} onCancel={handleCloseModalize} ref={goalInputRef} />

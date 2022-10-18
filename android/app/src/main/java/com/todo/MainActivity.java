@@ -16,6 +16,11 @@ public class MainActivity extends ReactActivity {
     return "todo";
   }
 
+  /**
+   * Returns the instance of the {@link ReactActivityDelegate}. There the RootView is created and
+   * you can specify the renderer you wish to use - the new renderer (Fabric) or the old renderer
+   * (Paper).
+   */
   @Override
   protected ReactActivityDelegate createReactActivityDelegate() {
     return new ReactActivityDelegate(this, getMainComponentName()) {
@@ -24,16 +29,6 @@ public class MainActivity extends ReactActivity {
        return new RNGestureHandlerEnabledRootView(MainActivity.this);
       }
     };
-  }
-
-  /**
-   * Returns the instance of the {@link ReactActivityDelegate}. There the RootView is created and
-   * you can specify the renderer you wish to use - the new renderer (Fabric) or the old renderer
-   * (Paper).
-   */
-  @Override
-  protected ReactActivityDelegate createReactActivityDelegate() {
-    return new MainActivityDelegate(this, getMainComponentName());
   }
 
   public static class MainActivityDelegate extends ReactActivityDelegate {

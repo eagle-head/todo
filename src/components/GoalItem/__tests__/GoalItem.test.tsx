@@ -22,8 +22,10 @@ describe("GoalItem:", () => {
   test("Portal Warning should disappear after press cancel button", async () => {
     render(<GoalItem id="test-goal-item" onDeleteItem={jest.fn()} text="React Native" />);
     const goalItem = screen.getByText(/react native/i);
+
     fireEvent.press(goalItem);
     fireEvent.press(await screen.findByText(/cancel/i));
+
     await waitForElementToBeRemoved(() => screen.getByText(/cancel/i));
     expect(goalItem).toBeTruthy();
   });

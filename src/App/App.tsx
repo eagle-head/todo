@@ -13,12 +13,10 @@ const App: FC<PropsWithChildren> = () => {
   const goalInputRef = useRef<Modalize | null>(null);
 
   const handleAddGoal = (enteredGoalText: string): void => {
-    if (enteredGoalText.trim().length >= 2) {
-      setCourseGoals(currentCourseGoal => [
-        ...currentCourseGoal,
-        { text: enteredGoalText.trim(), key: Math.random().toString() },
-      ]);
-    }
+    setCourseGoals(currentCourseGoal => [
+      ...currentCourseGoal,
+      { text: enteredGoalText.trim(), key: Math.random().toString() },
+    ]);
   };
 
   const handleDelete = (id: string): void => {

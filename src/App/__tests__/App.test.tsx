@@ -76,7 +76,6 @@ describe("App tests", () => {
     fireEvent.press(GoalButton);
 
     fireEvent.changeText(screen.getByPlaceholderText(/your text goal.../i), "R");
-
     const ModalConfirmButton = await screen.findByText(/add goal/i);
     fireEvent.press(ModalConfirmButton);
 

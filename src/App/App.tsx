@@ -2,7 +2,6 @@ import React, { FC, type PropsWithChildren, useRef, useState } from "react";
 import { View, FlatList, StatusBar, ListRenderItemInfo, SafeAreaView } from "react-native";
 import { Button } from "react-native-paper";
 import { Modalize } from "react-native-modalize";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import GoalInput from "../components/GoalInput";
 import GoalItem from "../components/GoalItem";
@@ -48,7 +47,7 @@ const App: FC<PropsWithChildren> = () => {
       </View>
       <View style={styles.buttonContainer}>
         <Button
-          icon={() => <Icon name="plus-circle-outline" size={20} color="#b180f0" />}
+          icon="plus-circle-outline"
           mode="outlined"
           style={styles.button}
           labelStyle={styles.buttonText}

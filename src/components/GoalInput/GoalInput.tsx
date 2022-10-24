@@ -35,7 +35,7 @@ const GoalInput = forwardRef<Modalize, IGoalInput>(({ onCancel, onAddGoal }, ref
   return (
     <>
       <Modalize
-        keyboardAvoidingBehavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardAvoidingBehavior={/* istanbul ignore next */ Platform.OS === "ios" ? "padding" : "height"}
         ref={ref}
         modalStyle={styles.modalStyle}
         adjustToContentHeight>

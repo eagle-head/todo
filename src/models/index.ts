@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export interface IGoal {
   text: string;
   key: string;

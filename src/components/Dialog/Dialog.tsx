@@ -4,6 +4,10 @@ import { IDialog } from "../../models";
 
 const DialogComponent: FC<PropsWithChildren<IDialog>> = ({ setIsVisible, isVisible, onDelete }) => {
   const hideDialog = () => setIsVisible(false);
+  const confirmDialog = () => {
+    onDelete();
+    setIsVisible(false);
+  };
 
   return (
     <Portal>
@@ -14,7 +18,7 @@ const DialogComponent: FC<PropsWithChildren<IDialog>> = ({ setIsVisible, isVisib
         </Dialog.Content>
         <Dialog.Actions>
           <Button onPress={hideDialog}>Cancel</Button>
-          <Button onPress={onDelete}>Ok</Button>
+          <Button onPress={confirmDialog}>Ok</Button>
         </Dialog.Actions>
       </Dialog>
     </Portal>

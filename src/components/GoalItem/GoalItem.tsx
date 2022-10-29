@@ -1,23 +1,22 @@
 import React, { FC, useState, type PropsWithChildren } from "react";
 import { Text, TouchableOpacity } from "react-native";
-
 import Dialog from "../Dialog";
-import { IGoalItem } from "../../models";
 import { styles } from "./styles";
 
-const GoalItem: FC<PropsWithChildren<IGoalItem>> = ({ id, onDeleteItem, text }) => {
-  const [isDialogVisible, setIsDialogVisible] = useState(false);
+interface IGoalItem {
+  text: string;
+  onDeleteItem: () => void;
+}
 
-  const handleDeleteItem = (): void => {
-    setIsDialogVisible(true);
-  };
+const GoalItem: FC<PropsWithChildren<IGoalItem>> = ({ onDeleteItem, text }) => {
+  const [visible, setVisible] = useState<boolean>(false);
 
   return (
     <>
-      <TouchableOpacity style={styles.goalItem} onPress={handleDeleteItem}>
+      <TouchableOpacity style={styles.goalItem} onPress={setVisible.bind(this, true)}>
         <Text style={styles.goalText}>{text}</Text>
       </TouchableOpacity>
-      <Dialog isVisible={isDialogVisible} setIsVisible={setIsDialogVisible} onDelete={onDeleteItem.bind(this, id)} />
+      <Dialog isVisible={visible} setIsVisible={setVisible} onDelete={onDeleteItem} />
     </>
   );
 };

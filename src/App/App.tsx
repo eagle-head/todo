@@ -2,31 +2,36 @@ import React, { FC, type PropsWithChildren, useRef, useState } from "react";
 import { View, FlatList, StatusBar, ListRenderItemInfo, SafeAreaView } from "react-native";
 import { Button } from "react-native-paper";
 import { Modalize } from "react-native-modalize";
-
 import GoalInput from "../components/GoalInput";
 import GoalItem from "../components/GoalItem";
-import { IGoal } from "../models";
 import { styles } from "./styles";
+
+interface IGoal {
+  text: string;
+  key: string;
+}
+
+type RenderType = ({ item }: ListRenderItemInfo<IGoal>) => JSX.Element;
 
 const App: FC<PropsWithChildren> = () => {
   const [courseGoals, setCourseGoals] = useState<IGoal[]>([]);
   const goalInputRef = useRef<Modalize | null>(null);
 
   const handleAddGoal = (enteredGoalText: string): void => {
-    setCourseGoals(currentCourseGoal => [
+    setCourseGoals((currentCourseGoal) => [
       ...currentCourseGoal,
       { text: enteredGoalText.trim(), key: Math.random().toString() },
     ]);
   };
 
   const handleDelete = (id: string): void => {
-    setCourseGoals(currentCourseGoals => {
+    setCourseGoals((currentCourseGoals) => {
       return currentCourseGoals.filter(({ key }) => key !== id);
     });
   };
 
-  const renderGoalItem = ({ item }: ListRenderItemInfo<IGoal>): JSX.Element => {
-    return <GoalItem text={item.text} id={item.key} onDeleteItem={handleDelete} />;
+  const renderGoalItem: RenderType = ({ item }) => {
+    return <GoalItem text={item.text} onDeleteItem={handleDelete.bind(this, item.key)} />;
   };
 
   const handleOpenModalize = (): void => {

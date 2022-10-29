@@ -4,7 +4,11 @@ import { Modalize } from "react-native-modalize";
 import { Button, Snackbar } from "react-native-paper";
 
 import { styles } from "./styles";
-import { IGoalInput } from "../../models";
+
+interface IGoalInput {
+  onAddGoal: (param: string) => void;
+  onCancel: () => void;
+}
 
 const GoalInput = forwardRef<Modalize, IGoalInput>(({ onCancel, onAddGoal }, ref) => {
   const [enteredGoalText, setEnteredGoalText] = useState<string>("");

@@ -2,7 +2,6 @@ import React, { forwardRef, useState } from "react";
 import { View, TextInput, Image, Platform } from "react-native";
 import { Modalize } from "react-native-modalize";
 import { Button, Snackbar } from "react-native-paper";
-
 import { styles } from "./styles";
 
 interface IGoalInput {
@@ -14,17 +13,11 @@ const GoalInput = forwardRef<Modalize, IGoalInput>(({ onCancel, onAddGoal }, ref
   const [enteredGoalText, setEnteredGoalText] = useState<string>("");
   const [isSnackbarVisible, setIsSnackbarVisible] = useState<boolean>(false);
 
-  const onToggleSnackBar = (): void => setIsSnackbarVisible(!isSnackbarVisible);
-
-  const onDismissSnackBar = (): void => setIsSnackbarVisible(false);
-
-  const handleGoalInput = (enteredText: string): void => setEnteredGoalText(enteredText);
-
   const handleAddInputGoal = (): void => {
     onCancel();
 
     if (enteredGoalText.trim().length < 2) {
-      return onToggleSnackBar();
+      return setIsSnackbarVisible(!isSnackbarVisible);
     }
 
     onAddGoal(enteredGoalText);
@@ -50,7 +43,7 @@ const GoalInput = forwardRef<Modalize, IGoalInput>(({ onCancel, onAddGoal }, ref
             style={styles.textInput}
             placeholder="Your text goal..."
             placeholderTextColor="#b180f0"
-            onChangeText={handleGoalInput}
+            onChangeText={setEnteredGoalText}
             value={enteredGoalText}
             returnKeyType="done"
           />
@@ -74,7 +67,7 @@ const GoalInput = forwardRef<Modalize, IGoalInput>(({ onCancel, onAddGoal }, ref
       </Modalize>
       <Snackbar
         visible={isSnackbarVisible}
-        onDismiss={onDismissSnackBar}
+        onDismiss={setIsSnackbarVisible.bind(this, !isSnackbarVisible)}
         action={{
           label: "Undo",
           onPress: () => {},

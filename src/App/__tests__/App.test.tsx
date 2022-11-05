@@ -4,7 +4,7 @@ import { fireEvent, render, screen, waitForElementToBeRemoved } from "test-utils
 
 import { App } from "../App";
 
-describe("App tests", () => {
+describe("App", () => {
   beforeAll(() => {
     jest.useFakeTimers();
   });
@@ -84,7 +84,7 @@ describe("App tests", () => {
   });
 
   it("should not delete Goal Item after click on it", async () => {
-    const { debug } = render(<App />);
+    render(<App />);
 
     const GoalButton = screen.getByText(/goal/i);
     fireEvent.press(GoalButton);

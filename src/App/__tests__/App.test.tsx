@@ -1,6 +1,6 @@
 import "react-native";
 import React from "react";
-import { fireEvent, render, screen, waitForElementToBeRemoved } from "test-utils";
+import { cleanup, fireEvent, render, screen, waitForElementToBeRemoved } from "test-utils";
 
 import { App } from "../App";
 
@@ -11,6 +11,7 @@ describe("App", () => {
 
   afterEach(() => {
     jest.runOnlyPendingTimers();
+    cleanup();
   });
 
   afterAll(() => {
